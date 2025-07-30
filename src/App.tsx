@@ -1,14 +1,13 @@
-import Dashboard from './Dashboard';
-import './app.css'
+import { Outlet } from 'react-router';
 
-function App() {
+import './app.css';
+
+export default function App() {
   return (
     <>
       <header></header>
-      <Dashboard />
+      <Outlet />
       <footer></footer>
     </>
   );
 }
-
-export default App;
