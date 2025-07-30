@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 
 import App from './App.tsx';
 import Dashboard from './Dashboard.tsx';
+import Recipe from './Recipe.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -12,9 +13,9 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path='/' element={<App />}>
           <Route index element={<Dashboard />} />
-          {/* <Route path='/recipe'>
+          <Route path='/recipe'>
             <Route path=':rid' element={<Recipe />} />
-          </Route> */}
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
