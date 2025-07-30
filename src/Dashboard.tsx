@@ -1,6 +1,6 @@
-import RecipeList from './RecipeList';
+import { RecipeList } from './RecipeList';
 
-export default function Dashboard() {
+export function Dashboard() {
   return (
     <section id='content' className='container'>
       <div id='hero' className='hero'>

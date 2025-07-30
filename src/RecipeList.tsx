@@ -20,7 +20,7 @@ type Recipe = {
 //   },
 // ];
 
-export default function RecipeList() {
+export function RecipeList() {
   const [list, _] = useState<Recipe[]>([]);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function Recipe() {
+export function Recipe() {
   const [isExternal, setIsExternal] = useState<boolean>(false);
 
   useEffect(() => {
