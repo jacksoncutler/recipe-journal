@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router';
+
+type Context = {
+  id: string;
+};
 
 export function ViewRecipe() {
+  const context = useOutletContext<Context>();
   const [isExternal, setIsExternal] = useState<boolean>(false);
 
   useEffect(() => {
+    if (!context.id) return;
     // get recipe data from storage
     // if external recipe:
     if (false) {
