@@ -8,14 +8,13 @@ export function EditRecipe() {
   const [isExternal, setIsExternal] = useState<boolean>(false);
 
   useEffect(() => {
-    // if external recipe:
     setIsExternal(context.isExternal);
   }, []);
 
   return (
     <>
       <div id='recipe-title-input'>
-        <input />
+        <input value={context.name} />
       </div>
       {
         // toggle button for external recipe

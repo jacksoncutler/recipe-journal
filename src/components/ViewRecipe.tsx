@@ -7,7 +7,7 @@ export function ViewRecipe() {
 
   return (
     <>
-      <div id='recipe-title'>Recipe Name</div>
+      <div id='recipe-title'>{context.name}</div>
       <div id='recipe-body'>
         {context.isExternal ? (
           // use iframe or something for external recipe
@@ -15,13 +15,25 @@ export function ViewRecipe() {
         ) : (
           <>
             <h2>Ingredients</h2>
-            <ul></ul>
+            <ul>
+              {context.ingredients?.map((ingredient, i) => (
+                <li key={i}>{ingredient}</li>
+              ))}
+            </ul>
             <h2>Instructions</h2>
-            <ol></ol>
+            <ol>
+              {context.instructions?.map((instruction, i) => (
+                <li key={i}>{instruction}</li>
+              ))}
+            </ol>
           </>
         )}
         <h2>Notes</h2>
-        <ul></ul>
+        <ul>
+          {context.notes.map((note, i) => (
+            <li key={i}>{note}</li>
+          ))}
+        </ul>
       </div>
     </>
   );

@@ -17,8 +17,8 @@ export function Recipe() {
   const [recipeData, setRecipeData] = useState<RecipeData>();
 
   useEffect(() => {
-    // get recipe data from storage
     recipe.id = params.recipeId as string;
+    // get recipe data from storage
     setRecipeData(recipe);
     // if params.recipeId is not found:
     if (false) {
@@ -28,7 +28,7 @@ export function Recipe() {
 
   return (
     <section>
-      <Outlet context={{ initialState: recipeData }} />
+      {recipeData ? <Outlet context={recipeData} /> : <p>Loading...</p>}
     </section>
   );
 }
