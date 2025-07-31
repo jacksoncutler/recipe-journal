@@ -1,3 +1,5 @@
+import { EditRecipeInput } from './EditRecipeInput';
+
 type Props = {
   title: string;
   isOrdered: boolean;
@@ -6,20 +8,23 @@ type Props = {
 };
 
 export function EditRecipeSection(props: Props) {
-  function updateHandler(
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) {
-    const newData = [...props.data];
-    newData[index] = e.target.value;
-    props.setData(newData);
+  function updateHandlerFactory(index: number) {
+    return (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newData = [...props.data];
+      newData[index] = event.target.value;
+      props.setData(newData);
+    };
   }
 
   return (
     <div>
       <h2>{props.title}</h2>
       {props.data.map((item, i) => (
-        <input key={i} value={item} onChange={(e) => updateHandler(e, i)} />
+        <EditRecipeInput
+          key={i}
+          value={item}
+          onUpdate={updateHandlerFactory(i)}
+        />
       ))}
     </div>
   );
