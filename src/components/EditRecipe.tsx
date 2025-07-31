@@ -1,23 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 
-type Context = {
-  id: string;
-};
+import type { RecipeData } from '../types';
 
 export function EditRecipe() {
-  const context = useOutletContext<Context>();
+  const context = useOutletContext<RecipeData>();
   const [isExternal, setIsExternal] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!context.id) return;
-    // get recipe data from storage
     // if external recipe:
-    if (false) {
-      setIsExternal(true);
-    } else {
-      // retrieve recipe ing/instr
-    }
+    setIsExternal(context.isExternal);
   }, []);
 
   return (
