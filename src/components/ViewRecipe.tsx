@@ -2,27 +2,31 @@ import { useOutletContext } from 'react-router';
 
 import type { RecipeData } from '../types';
 
+type Context = {
+  data: RecipeData;
+}
+
 export function ViewRecipe() {
-  const context = useOutletContext<RecipeData>();
+  const context = useOutletContext<Context>();
 
   return (
     <>
-      <div id='recipe-title'>{context.name}</div>
+      <div id='recipe-title'>{context.data.name}</div>
       <div id='recipe-body'>
-        {context.isExternal ? (
+        {context.data.isExternal ? (
           // use iframe or something for external recipe
           <></>
         ) : (
           <>
             <h2>Ingredients</h2>
             <ul>
-              {context.ingredients?.map((ingredient, i) => (
+              {context.data.ingredients?.map((ingredient, i) => (
                 <li key={i}>{ingredient}</li>
               ))}
             </ul>
             <h2>Instructions</h2>
             <ol>
-              {context.instructions?.map((instruction, i) => (
+              {context.data.instructions?.map((instruction, i) => (
                 <li key={i}>{instruction}</li>
               ))}
             </ol>
@@ -30,7 +34,7 @@ export function ViewRecipe() {
         )}
         <h2>Notes</h2>
         <ul>
-          {context.notes.map((note, i) => (
+          {context.data.notes.map((note, i) => (
             <li key={i}>{note}</li>
           ))}
         </ul>

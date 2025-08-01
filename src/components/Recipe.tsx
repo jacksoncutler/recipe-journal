@@ -1,9 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Outlet, useParams } from 'react-router';
+import { Outlet, useParams, useLocation } from 'react-router';
 
 import type { RecipeData } from '../types';
 
-const recipe = {
+const initialRecipeState: RecipeData = {
+  id: '',
+  name: '',
+  isExternal: false,
+  ingredients: [''],
+  instructions: [''],
+  notes: [''],
+};
+
+const recipe: RecipeData = {
   id: '1',
   name: 'Chicken',
   isExternal: false,
@@ -13,22 +22,42 @@ const recipe = {
 };
 
 export function Recipe() {
+  let location = useLocation();
   let params = useParams();
   const [recipeData, setRecipeData] = useState<RecipeData>();
+  const [isNewRecipe, setIsNewRecipe] = useState<boolean>(false);
 
   useEffect(() => {
-    recipe.id = params.recipeId as string;
+    if (isNew()) {
+      setIsNewRecipe(true);
+      setRecipeData({ ...initialRecipeState });
+      return;
+    }
     // get recipe data from storage
-    setRecipeData(recipe);
     // if params.recipeId is not found:
     if (false) {
       // reroute to 404 page not found
     }
+    setRecipeData({ ...recipe, id: params.recipeId! });
   }, []);
+
+  function isNew() {
+    if ('new' === params.recipeId) {
+      const routeArr = location.pathname.split('/');
+      if ('edit' === routeArr[routeArr.length - 1]) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   return (
     <section>
-      {recipeData ? <Outlet context={recipeData} /> : <p>Loading...</p>}
+      {recipeData ? (
+        <Outlet context={{ data: recipeData, isNewRecipe }} />
+      ) : (
+        <p>Loading...</p>
+      )}
     </section>
   );
 }

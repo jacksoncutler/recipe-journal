@@ -1,22 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router';
+import { nanoid } from 'nanoid';
 
 import { EditRecipeSection } from './EditRecipeSection';
 import type { RecipeData } from '../types';
 
+type Context = {
+  data: RecipeData;
+  isNewRecipe: boolean;
+}
+
 export function EditRecipe() {
-  const context = useOutletContext<RecipeData>();
-  const [name, setName] = useState<RecipeData['name']>(context.name);
+  const context = useOutletContext<Context>();
+  const [id, setId] = useState<string>(context.data.id);
+  const [name, setName] = useState<RecipeData['name']>(context.data.name);
   const [isExternal, _] = useState<RecipeData['isExternal']>(
-    context.isExternal
+    context.data.isExternal
   );
   const [ingredients, setIngredients] = useState<RecipeData['ingredients']>(
-    context.ingredients
+    context.data.ingredients
   );
   const [instructions, setInstructions] = useState<RecipeData['instructions']>(
-    context.instructions
+    context.data.instructions
   );
-  const [notes, setNotes] = useState<RecipeData['notes']>(context.notes);
+  const [notes, setNotes] = useState<RecipeData['notes']>(context.data.notes);
+
+  useEffect(() => {
+    if (context.isNewRecipe) {
+      setId(nanoid());
+    }
+  }, [])
+
+  console.log(id);
 
   return (
     <>
