@@ -34,8 +34,9 @@ export function EditRecipe() {
   console.log(id);
 
   return (
-    <>
-      <div id='recipe-title-input'>
+    <form className='recipe-form'>
+      <div className='recipe-form section'>
+        <h2>Recipe Name</h2>
         <input value={name} onChange={(e) => setName(e.target.value)} />
       </div>
       {
@@ -69,6 +70,6 @@ export function EditRecipe() {
         data={notes}
         setData={setNotes}
       />
-    </>
+    </form>
   );
 }

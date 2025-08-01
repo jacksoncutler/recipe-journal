@@ -52,7 +52,7 @@ export function Recipe() {
   }
 
   return (
-    <section>
+    <section className='container'>
       {recipeData ? (
         <Outlet context={{ data: recipeData, isNewRecipe }} />
       ) : (

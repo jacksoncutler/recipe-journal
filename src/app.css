@@ -5,3 +5,13 @@
 .hero {
   font-size: 4rem;
 }
+
+.recipe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.recipe-form.section {
+  gap: 0.5rem;
+}

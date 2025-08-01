@@ -17,7 +17,7 @@ export function EditRecipeSection(props: Props) {
   }
 
   return (
-    <div>
+    <div className='recipe-form section'>
       <h2>{props.title}</h2>
       {props.data.map((item, i) => (
         <EditRecipeInput
