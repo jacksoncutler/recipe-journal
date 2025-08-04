@@ -16,6 +16,12 @@ export function EditRecipeSection(props: Props) {
     };
   }
 
+  function deleteHandlerFactory(index: number) {
+    return () => {
+      props.setData(props.data.filter((_, i) => i !== index));
+    };
+  }
+
   return (
     <div className='recipe-form section'>
       <h2>{props.title}</h2>
@@ -24,6 +30,7 @@ export function EditRecipeSection(props: Props) {
           key={i}
           value={item}
           onUpdate={updateHandlerFactory(i)}
+          onDelete={deleteHandlerFactory(i)}
         />
       ))}
     </div>
