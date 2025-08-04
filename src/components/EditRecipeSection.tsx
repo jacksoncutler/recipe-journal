@@ -23,6 +23,10 @@ export function EditRecipeSection(props: Props) {
     };
   }
 
+  function newInputHandler() {
+    props.setData((prevData) => [...prevData, '']);
+  }
+
   return (
     <div className='recipe-form section'>
       <h2>{props.title}</h2>
@@ -34,6 +38,7 @@ export function EditRecipeSection(props: Props) {
           onDelete={deleteHandlerFactory(i)}
         />
       ))}
+      <button onClick={newInputHandler} className='button-icon' type='button'>+</button>
     </div>
   );
 }

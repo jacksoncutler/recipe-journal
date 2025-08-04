@@ -2,6 +2,10 @@
   padding: 1em;
 }
 
+.button-icon {
+  max-width: fit-content;
+}
+
 .hero {
   font-size: 4rem;
 }

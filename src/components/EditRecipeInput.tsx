@@ -8,7 +8,7 @@ export function EditRecipeInput(props: Props) {
   return (
     <div className='recipe-form-item'>
       <input value={props.value} onChange={(e) => props.onUpdate(e)} />
-      <button type='button' onClick={props.onDelete}>X</button>
+      <button onClick={props.onDelete} className='button-icon' type='button'>X</button>
     </div>
   );
 }
