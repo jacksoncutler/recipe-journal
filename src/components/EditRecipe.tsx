@@ -31,10 +31,13 @@ export function EditRecipe() {
     }
   }, [])
 
-  console.log(id);
+  function saveHandler(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    console.log(id);
+  }
 
   return (
-    <form className='recipe-form'>
+    <form onSubmit={saveHandler} className='recipe-form'>
       <div className='recipe-form section'>
         <h2>Recipe Name</h2>
         <input value={name} onChange={(e) => setName(e.target.value)} />
@@ -70,6 +73,7 @@ export function EditRecipe() {
         data={notes}
         setData={setNotes}
       />
+      <button type='submit'>Save</button>
     </form>
   );
 }
