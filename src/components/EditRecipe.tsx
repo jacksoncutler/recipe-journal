@@ -17,6 +17,9 @@ export function EditRecipe() {
   const [isExternal, _] = useState<RecipeData['isExternal']>(
     context.data.isExternal
   );
+  const [externalLink, setExternalLink] = useState<RecipeData['externalLink']>(
+    context.data.externalLink
+  );
   const [ingredients, setIngredients] = useState<RecipeData['ingredients']>(
     context.data.ingredients
   );
@@ -41,7 +44,7 @@ export function EditRecipe() {
       createdAt: Date.now(),
     };
     if (isExternal) {
-      saveData.externalLink = '';
+      saveData.externalLink = externalLink;
     } else {
       saveData.ingredients = ingredients;
       saveData.instructions = instructions;
@@ -58,11 +61,13 @@ export function EditRecipe() {
       {
         // toggle button for external recipe
         isExternal ? (
-          <>
-            {
-              // input for external recipe link
-            }
-          </>
+          <div className='recipe-form section'>
+            <h2>Recipe Link</h2>
+            <input
+              value={externalLink}
+              onChange={(e) => setExternalLink(e.target.value)}
+            />
+          </div>
         ) : (
           <>
             <EditRecipeSection

@@ -13,24 +13,24 @@ const initialRecipeState: RecipeData = {
   notes: [''],
 };
 
-const recipe: RecipeData = {
-  id: undefined,
-  createdAt: undefined,
-  name: 'Chicken',
-  isExternal: false,
-  ingredients: ['Salt', 'Chicken'],
-  instructions: ['Salt the chicken', 'Cook the chicken'],
-  notes: ["Don't forget to salt the chicken before you cook it"],
-};
-
 // const recipe: RecipeData = {
 //   id: undefined,
 //   createdAt: undefined,
 //   name: 'Chicken',
-//   isExternal: true,
-//   externalLink: 'test.com',
+//   isExternal: false,
+//   ingredients: ['Salt', 'Chicken'],
+//   instructions: ['Salt the chicken', 'Cook the chicken'],
 //   notes: ["Don't forget to salt the chicken before you cook it"],
 // };
+
+const recipe: RecipeData = {
+  id: undefined,
+  createdAt: undefined,
+  name: 'Chicken',
+  isExternal: true,
+  externalLink: 'test.com',
+  notes: ["Don't forget to salt the chicken before you cook it"],
+};
 
 export function Recipe() {
   let location = useLocation();
