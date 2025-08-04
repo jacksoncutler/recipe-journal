@@ -4,15 +4,16 @@ type Props = {
   title: string;
   isOrdered: boolean;
   data: string[];
-  setData: (newData: string[]) => void;
+  setData: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export function EditRecipeSection(props: Props) {
   function updateHandlerFactory(index: number) {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newData = [...props.data];
-      newData[index] = event.target.value;
-      props.setData(newData);
+      props.setData((prevData) => {
+        prevData[index] = event.target.value;
+        return [...prevData];
+      });
     };
   }
 

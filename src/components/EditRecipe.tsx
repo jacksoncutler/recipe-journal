@@ -53,13 +53,13 @@ export function EditRecipe() {
               title='Ingredients'
               isOrdered={false}
               data={ingredients!}
-              setData={setIngredients}
+              setData={setIngredients as React.Dispatch<React.SetStateAction<string[]>>}
             />
             <EditRecipeSection
               title='Instructions'
               isOrdered={true}
               data={instructions!}
-              setData={setInstructions}
+              setData={setInstructions as React.Dispatch<React.SetStateAction<string[]>>}
             />
           </>
         )
