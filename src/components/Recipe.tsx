@@ -4,7 +4,8 @@ import { Outlet, useParams, useLocation } from 'react-router';
 import type { RecipeData } from '../types';
 
 const initialRecipeState: RecipeData = {
-  id: '',
+  id: undefined,
+  createdAt: undefined,
   name: '',
   isExternal: false,
   ingredients: [''],
@@ -13,13 +14,23 @@ const initialRecipeState: RecipeData = {
 };
 
 const recipe: RecipeData = {
-  id: '1',
+  id: undefined,
+  createdAt: undefined,
   name: 'Chicken',
   isExternal: false,
   ingredients: ['Salt', 'Chicken'],
   instructions: ['Salt the chicken', 'Cook the chicken'],
   notes: ["Don't forget to salt the chicken before you cook it"],
 };
+
+// const recipe: RecipeData = {
+//   id: undefined,
+//   createdAt: undefined,
+//   name: 'Chicken',
+//   isExternal: true,
+//   externalLink: 'test.com',
+//   notes: ["Don't forget to salt the chicken before you cook it"],
+// };
 
 export function Recipe() {
   let location = useLocation();

@@ -8,11 +8,11 @@ import type { RecipeData } from '../types';
 type Context = {
   data: RecipeData;
   isNewRecipe: boolean;
-}
+};
 
 export function EditRecipe() {
   const context = useOutletContext<Context>();
-  const [id, setId] = useState<string>(context.data.id);
+  const [id, setId] = useState<RecipeData['id']>(context.data.id);
   const [name, setName] = useState<RecipeData['name']>(context.data.name);
   const [isExternal, _] = useState<RecipeData['isExternal']>(
     context.data.isExternal
@@ -29,11 +29,24 @@ export function EditRecipe() {
     if (context.isNewRecipe) {
       setId(nanoid());
     }
-  }, [])
+  }, []);
 
   function saveHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(id);
+    const saveData: RecipeData = {
+      id,
+      name,
+      isExternal,
+      notes,
+      createdAt: Date.now(),
+    };
+    if (isExternal) {
+      saveData.externalLink = '';
+    } else {
+      saveData.ingredients = ingredients;
+      saveData.instructions = instructions;
+    }
+    console.log(saveData);
   }
 
   return (
@@ -56,13 +69,19 @@ export function EditRecipe() {
               title='Ingredients'
               isOrdered={false}
               data={ingredients!}
-              setData={setIngredients as React.Dispatch<React.SetStateAction<string[]>>}
+              setData={
+                setIngredients as React.Dispatch<React.SetStateAction<string[]>>
+              }
             />
             <EditRecipeSection
               title='Instructions'
               isOrdered={true}
               data={instructions!}
-              setData={setInstructions as React.Dispatch<React.SetStateAction<string[]>>}
+              setData={
+                setInstructions as React.Dispatch<
+                  React.SetStateAction<string[]>
+                >
+              }
             />
           </>
         )
