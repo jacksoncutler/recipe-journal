@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useOutletContext } from 'react-router';
 
 import { DynamicFormSection } from './DynamicFormSection';
+import { ValidatedInput } from './ValidatedInput';
 import { createRecipe, updateRecipe } from '../storage';
+import { isValidName, isValidExternalLink } from '../validation';
 import type { RecipeData } from '../types';
 
 type Context = {
@@ -26,9 +28,15 @@ export function EditRecipe() {
     context.data.instructions
   );
   const [notes, setNotes] = useState<RecipeData['notes']>(context.data.notes);
+  const [isValidNameState, setIsValidNameState] = useState<boolean>(true);
+  const [isValidExternalLinkState, setIsValidExternalLinkState] =
+    useState<boolean>(true);
 
   function saveHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setIsValidNameState(isValidName(name));
+    if (isExternal)
+      setIsValidExternalLinkState(isValidExternalLink(externalLink));
     const saveData: RecipeData = {
       ...context.data,
       name,
@@ -52,16 +60,23 @@ export function EditRecipe() {
     <form onSubmit={saveHandler} className='recipe-form'>
       <div className='recipe-form section'>
         <h2>Recipe Name</h2>
-        <input value={name} onChange={(e) => setName(e.target.value)} />
+        <ValidatedInput
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          type='name'
+          isValid={isValidNameState}
+        />
       </div>
       {
         // toggle button for external recipe
         isExternal ? (
           <div className='recipe-form section'>
             <h2>Recipe Link</h2>
-            <input
-              value={externalLink}
+            <ValidatedInput
+              value={externalLink!}
               onChange={(e) => setExternalLink(e.target.value)}
+              type='externalLink'
+              isValid={isValidExternalLinkState}
             />
           </div>
         ) : (

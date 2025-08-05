@@ -9,10 +9,10 @@ export function isValidRecipeData(data: RecipeData): boolean {
   return true;
 }
 
-function isValidName(name: RecipeData['name']): boolean {
+export function isValidName(name: RecipeData['name']): boolean {
   return name.trim().length > 0;
 }
 
-function isValidExternalLink(link: RecipeData['externalLink']): boolean {
+export function isValidExternalLink(link: RecipeData['externalLink']): boolean {
   return validUrl.test(link!);
 }
