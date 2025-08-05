@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useOutletContext } from 'react-router';
 
 import { EditRecipeSection } from './EditRecipeSection';
-import { createRecipe } from '../storage';
+import { createRecipe, updateRecipe } from '../storage';
 import type { RecipeData } from '../types';
 
 type Context = {
@@ -41,7 +41,11 @@ export function EditRecipe() {
       saveData.ingredients = ingredients;
       saveData.instructions = instructions;
     }
-    createRecipe(saveData);
+    if (context.isNewRecipe) {
+      createRecipe(saveData);
+    } else {
+      updateRecipe(saveData);
+    }
   }
 
   return (

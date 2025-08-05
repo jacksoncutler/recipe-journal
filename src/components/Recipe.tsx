@@ -50,7 +50,7 @@ export function Recipe() {
     if (false) {
       // reroute to 404 page not found
     }
-    setRecipeData({ ...recipe, id: params.recipeId! });
+    setRecipeData({ ...recipe, id: params.recipeId!, createdAt: Date.now() });
   }, []);
 
   function isNew() {

@@ -14,36 +14,49 @@ export function createRecipe(data: RecipeData): void | RecipeData['id'] {
   data.createdAt = Date.now();
   console.log('Creating recipe');
   console.log(data);
+  const listItem: RecipeListItem = {
+    id: data.id,
+    createdAt: data.createdAt,
+    name: data.name,
+  };
+  createRecipeListItem(listItem);
 }
 
 export function updateRecipe(data: RecipeData): void | RecipeData['id'] {
-  if (data.id === undefined) return;
+  if (data.id === undefined || data.createdAt === undefined) return;
   console.log('Updating recipe');
   console.log(data);
+  const listItem: RecipeListItem = {
+    id: data.id,
+    createdAt: data.createdAt,
+    name: data.name,
+  };
+  updateRecipeListItem(listItem);
 }
 
 export function deleteRecipe(id: RecipeData['id']): void | RecipeData['id'] {
   if (id === undefined) return;
   console.log('Deleting recipe\n' + id);
+  deleteRecipeListItem(id);
 }
 
 export function getRecipeList(sortBy: SortType): void | RecipeListItem[] {
   console.log('Retrieving list of recipes sorted by: ' + sortBy);
 }
 
-export function createRecipeListItem(
+function createRecipeListItem(
   item: RecipeListItem
 ): void | RecipeListItem['id'] {
   console.log('Creating list item\n' + item.id);
 }
 
-export function updateRecipeListItem(
+function updateRecipeListItem(
   item: RecipeListItem
 ): void | RecipeListItem['id'] {
   console.log('Updating list item\n' + item.id);
 }
 
-export function deleteRecipeListItem(
+function deleteRecipeListItem(
   id: RecipeListItem['id']
 ): void | RecipeListItem['id'] {
   console.log('Deleting list item\n' + id);
