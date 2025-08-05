@@ -4,7 +4,11 @@ import { useOutletContext } from 'react-router';
 import { DynamicFormSection } from './DynamicFormSection';
 import { ValidatedInput } from './ValidatedInput';
 import { createRecipe, updateRecipe } from '../storage';
-import { isValidName, isValidExternalLink } from '../validation';
+import {
+  isValidRecipeData,
+  isValidName,
+  isValidExternalLink,
+} from '../validation';
 import type { RecipeData } from '../types';
 
 type Context = {
@@ -34,25 +38,38 @@ export function EditRecipe() {
 
   function saveHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setIsValidNameState(isValidName(name));
-    if (isExternal)
-      setIsValidExternalLinkState(isValidExternalLink(externalLink));
-    const saveData: RecipeData = {
-      ...context.data,
-      name,
-      isExternal,
-      notes,
-    };
-    if (isExternal) {
-      saveData.externalLink = externalLink;
-    } else {
-      saveData.ingredients = ingredients;
-      saveData.instructions = instructions;
+    const saveData = buildSaveData();
+    if (!isValidRecipeData(saveData)) {
+      setInvalidInputStates();
+      return;
     }
     if (context.isNewRecipe) {
       createRecipe(saveData);
     } else {
       updateRecipe(saveData);
+    }
+    // reroute to dashboard
+
+    function buildSaveData(): RecipeData {
+      const saveData: RecipeData = {
+        ...context.data,
+        name,
+        isExternal,
+        notes,
+      };
+      if (isExternal) {
+        saveData.externalLink = externalLink;
+      } else {
+        saveData.ingredients = ingredients;
+        saveData.instructions = instructions;
+      }
+      return saveData;
+    }
+
+    function setInvalidInputStates() {
+      setIsValidNameState(isValidName(name));
+      if (isExternal)
+        setIsValidExternalLinkState(isValidExternalLink(externalLink));
     }
   }
 
