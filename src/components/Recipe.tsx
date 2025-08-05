@@ -29,7 +29,7 @@ const recipe: RecipeData = {
   createdAt: undefined,
   name: 'Chicken',
   isExternal: true,
-  externalLink: 'test.com',
+  externalLink: 'https://www.google.com/',
   notes: ["Don't forget to salt the chicken before you cook it"],
 };
 
