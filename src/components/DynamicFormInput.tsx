@@ -4,7 +4,7 @@ type Props = {
   onDelete: () => void;
 };
 
-export function EditRecipeInput(props: Props) {
+export function DynamicFormInput(props: Props) {
   return (
     <div className='recipe-form-item'>
       <input value={props.value} onChange={(e) => props.onUpdate(e)} />

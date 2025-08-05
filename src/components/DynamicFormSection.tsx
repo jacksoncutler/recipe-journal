@@ -1,4 +1,4 @@
-import { EditRecipeInput } from './EditRecipeInput';
+import { DynamicFormInput } from './DynamicFormInput';
 
 type Props = {
   title: string;
@@ -7,7 +7,7 @@ type Props = {
   setData: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-export function EditRecipeSection(props: Props) {
+export function DynamicFormSection(props: Props) {
   function updateHandlerFactory(index: number) {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
       props.setData((prevData) => {
@@ -31,7 +31,7 @@ export function EditRecipeSection(props: Props) {
     <div className='recipe-form section'>
       <h2>{props.title}</h2>
       {props.data.map((item, i) => (
-        <EditRecipeInput
+        <DynamicFormInput
           key={i}
           value={item}
           onUpdate={updateHandlerFactory(i)}

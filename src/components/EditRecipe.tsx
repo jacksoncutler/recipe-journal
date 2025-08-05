@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useOutletContext } from 'react-router';
 
-import { EditRecipeSection } from './EditRecipeSection';
+import { DynamicFormSection } from './DynamicFormSection';
 import { createRecipe, updateRecipe } from '../storage';
 import type { RecipeData } from '../types';
 
@@ -66,7 +66,7 @@ export function EditRecipe() {
           </div>
         ) : (
           <>
-            <EditRecipeSection
+            <DynamicFormSection
               title='Ingredients'
               isOrdered={false}
               data={ingredients!}
@@ -74,7 +74,7 @@ export function EditRecipe() {
                 setIngredients as React.Dispatch<React.SetStateAction<string[]>>
               }
             />
-            <EditRecipeSection
+            <DynamicFormSection
               title='Instructions'
               isOrdered={true}
               data={instructions!}
@@ -87,7 +87,7 @@ export function EditRecipe() {
           </>
         )
       }
-      <EditRecipeSection
+      <DynamicFormSection
         title='Notes'
         isOrdered={false}
         data={notes}
