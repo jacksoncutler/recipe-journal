@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useOutletContext } from 'react-router';
-import { nanoid } from 'nanoid';
 
 import { EditRecipeSection } from './EditRecipeSection';
+import { createRecipe } from '../storage';
 import type { RecipeData } from '../types';
 
 type Context = {
@@ -12,7 +12,6 @@ type Context = {
 
 export function EditRecipe() {
   const context = useOutletContext<Context>();
-  const [id, setId] = useState<RecipeData['id']>(context.data.id);
   const [name, setName] = useState<RecipeData['name']>(context.data.name);
   const [isExternal, _] = useState<RecipeData['isExternal']>(
     context.data.isExternal
@@ -28,20 +27,13 @@ export function EditRecipe() {
   );
   const [notes, setNotes] = useState<RecipeData['notes']>(context.data.notes);
 
-  useEffect(() => {
-    if (context.isNewRecipe) {
-      setId(nanoid());
-    }
-  }, []);
-
   function saveHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const saveData: RecipeData = {
-      id,
+      ...context.data,
       name,
       isExternal,
       notes,
-      createdAt: Date.now(),
     };
     if (isExternal) {
       saveData.externalLink = externalLink;
@@ -49,7 +41,7 @@ export function EditRecipe() {
       saveData.ingredients = ingredients;
       saveData.instructions = instructions;
     }
-    console.log(saveData);
+    createRecipe(saveData);
   }
 
   return (

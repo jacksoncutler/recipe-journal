@@ -8,6 +8,7 @@ const initialRecipeState: RecipeData = {
   createdAt: undefined,
   name: '',
   isExternal: false,
+  externalLink: '',
   ingredients: [''],
   instructions: [''],
   notes: [''],
