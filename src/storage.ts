@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 
+// import { isValidName, isValidExternalLink } from './validation';
 import type { RecipeListItem, RecipeData } from './types';
 
 type SortType = 'name' | 'createdAt';
@@ -12,6 +13,7 @@ export function getRecipe(id: RecipeData['id']): void | RecipeData {
 export function createRecipe(data: RecipeData): void | RecipeData['id'] {
   data.id = nanoid();
   data.createdAt = Date.now();
+  formatRecipeData(data);
   console.log('Creating recipe');
   console.log(data);
   const listItem: RecipeListItem = {
@@ -24,6 +26,7 @@ export function createRecipe(data: RecipeData): void | RecipeData['id'] {
 
 export function updateRecipe(data: RecipeData): void | RecipeData['id'] {
   if (data.id === undefined || data.createdAt === undefined) return;
+  formatRecipeData(data);
   console.log('Updating recipe');
   console.log(data);
   const listItem: RecipeListItem = {
@@ -60,4 +63,19 @@ function deleteRecipeListItem(
   id: RecipeListItem['id']
 ): void | RecipeListItem['id'] {
   console.log('Deleting list item\n' + id);
+}
+
+// FORMATTING
+
+function formatRecipeData(data: RecipeData): void {
+  if (!data.isExternal) {
+    data.ingredients = formatList(data.ingredients!);
+    data.instructions = formatList(data.instructions!);
+  }
+  data.notes = formatList(data.notes);
+}
+
+function formatList(list: string[]): string[] {
+  const newList = list.filter((value) => value.trim() !== '');
+  return newList.length ? newList : [''];
 }
