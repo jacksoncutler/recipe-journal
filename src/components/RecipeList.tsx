@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 
-type Recipe = {
-  id: string;
-  name: string;
-};
+import type { RecipeListItem } from '../types';
 
 // const initialList: Recipe[] = [
 //   {
@@ -21,7 +18,7 @@ type Recipe = {
 // ];
 
 export function RecipeList() {
-  const [list, _] = useState<Recipe[]>([]);
+  const [list, _] = useState<RecipeListItem[]>([]);
 
   useEffect(() => {
     // get list from storage
