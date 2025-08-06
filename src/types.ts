@@ -1,9 +1,3 @@
-export type RecipeListItem = {
-  id: string;
-  createdAt: number;
-  name: string;
-}
-
 export type RecipeData = {
   id: string | undefined;
   createdAt: number | undefined;
@@ -13,4 +7,15 @@ export type RecipeData = {
   ingredients?: string[];
   instructions?: string[];
   notes: string[];
+};
+
+export type RecipeListItem = {
+  id: string;
+  createdAt: number;
+  name: string;
+};
+
+export type InvalidInputMessages = {
+  name: string;
+  externalLink: string;
 };

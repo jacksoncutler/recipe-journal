@@ -1,7 +1,12 @@
-import type { RecipeData } from './types';
+import type { RecipeData, InvalidInputMessages } from './types';
 
 const validUrl =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/;
+
+export const invalidInputMessages: InvalidInputMessages = {
+  name: 'Name cannot be blank',
+  externalLink: 'Please enter a valid URL',
+};
 
 export function isValidRecipeData(data: RecipeData): boolean {
   if (!isValidName(data.name)) return false;
