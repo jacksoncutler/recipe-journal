@@ -1,35 +1,26 @@
 import { useState, useEffect } from 'react';
+// import { useSearchParams } from 'react-router';
 
-import type { RecipeListItem } from '../types';
-
-// const initialList: Recipe[] = [
-//   {
-//     id: '1',
-//     name: 'Cast Iron Pepperoni Pizza',
-//   },
-//   {
-//     id: '2',
-//     name: 'Grilled Gochujang Chicken',
-//   },
-//   {
-//     id: '3',
-//     name: 'Cantonese Fried Rice',
-//   },
-// ];
+import { getRecipeList } from '../storage';
+import type { RecipeListItem, SortType } from '../types';
 
 export function RecipeList() {
-  const [list, _] = useState<RecipeListItem[]>([]);
+  // const [searchParams, setSearchParams] = useSearchParams();
+  const [list, setList] = useState<RecipeListItem[] | void>([]);
+  const [sortBy, setSortBy] = useState<SortType>('createdAt');
+  const [isReversed, setIsReversed] = useState<boolean>(true);
 
   useEffect(() => {
-    // get list from storage
-    // setList(initialList);
+    setList(getRecipeList(sortBy, isReversed));
   }, []);
 
   return (
     <ul id='recipe-list' className='recipe-list'>
-      {list.map((recipe) => (
-        <li key={recipe.id}>{recipe.name}</li>
-      ))}
+      {list ? (
+        list.map((recipe) => <li key={recipe.id}>{recipe.name}</li>)
+      ) : (
+        <p>No recipes yet...</p>
+      )}
     </ul>
   );
 }

@@ -15,6 +15,8 @@ export type RecipeListItem = {
   name: string;
 };
 
+export type SortType = 'name' | 'createdAt';
+
 export type InvalidInputMessages = {
   name: string;
   externalLink: string;

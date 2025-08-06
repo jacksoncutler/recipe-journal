@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
 
 import { isValidRecipeData } from './validation';
-import type { RecipeListItem, RecipeData } from './types';
+import type { RecipeData, RecipeListItem, SortType } from './types';
 
-type SortType = 'name' | 'createdAt';
+const recipeListKey = 'recipeList';
 
 export function getRecipe(id: RecipeData['id']): void | RecipeData {
   if (id === undefined) return;
@@ -43,15 +43,19 @@ export function deleteRecipe(id: RecipeData['id']): void | RecipeData['id'] {
   deleteRecipeListItem(id);
 }
 
-export function getRecipeList(sortBy: SortType): void | RecipeListItem[] {
-  console.log('Retrieving list of recipes sorted by: ' + sortBy);
+export function getRecipeList(sortBy: SortType, reversed: boolean): void | RecipeListItem[] {
+  const stringifiedList = localStorage.getItem(recipeListKey);
+  if (stringifiedList === null) return;
+  const recipeList: RecipeListItem[] = JSON.parse(stringifiedList);
+  const sortedList = recipeList.sort((a, b) => (a[sortBy] < b[sortBy] ? -1 : 1));
+  return reversed ? sortedList.reverse() : sortedList;
 }
 
 function createRecipeListItem(
   item: RecipeListItem
 ): void | RecipeListItem['id'] {
   let recipeList: RecipeListItem[];
-  const stringifiedList = localStorage.getItem('recipeList');
+  const stringifiedList = localStorage.getItem(recipeListKey);
   if (stringifiedList === null) recipeList = [];
   else recipeList = JSON.parse(stringifiedList);
   recipeList.push(item);
@@ -62,7 +66,7 @@ function updateRecipeListItem(
   item: RecipeListItem
 ): void | RecipeListItem['id'] {
   let recipeList: RecipeListItem[];
-  const stringifiedList = localStorage.getItem('recipeList');
+  const stringifiedList = localStorage.getItem(recipeListKey);
   if (stringifiedList === null) {
     recipeList = [item];
     localStorage.setItem('recipeList', JSON.stringify(recipeList));
