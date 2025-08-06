@@ -15,8 +15,7 @@ export function createRecipe(data: RecipeData): void | RecipeData['id'] {
   data.id = nanoid();
   data.createdAt = Date.now();
   formatRecipeData(data);
-  console.log('Creating recipe');
-  console.log(data);
+  localStorage.setItem(data.id, JSON.stringify(data));
   const listItem: RecipeListItem = {
     id: data.id,
     createdAt: data.createdAt,
@@ -29,8 +28,7 @@ export function updateRecipe(data: RecipeData): void | RecipeData['id'] {
   if (data.id === undefined || data.createdAt === undefined) return;
   if (!isValidRecipeData(data)) return;
   formatRecipeData(data);
-  console.log('Updating recipe');
-  console.log(data);
+  localStorage.setItem(data.id, JSON.stringify(data));
   const listItem: RecipeListItem = {
     id: data.id,
     createdAt: data.createdAt,
@@ -52,13 +50,29 @@ export function getRecipeList(sortBy: SortType): void | RecipeListItem[] {
 function createRecipeListItem(
   item: RecipeListItem
 ): void | RecipeListItem['id'] {
-  console.log('Creating list item\n' + item.id);
+  let recipeList: RecipeListItem[];
+  const stringifiedList = localStorage.getItem('recipeList');
+  if (stringifiedList === null) recipeList = [];
+  else recipeList = JSON.parse(stringifiedList);
+  recipeList.push(item);
+  localStorage.setItem('recipeList', JSON.stringify(recipeList));
 }
 
 function updateRecipeListItem(
   item: RecipeListItem
 ): void | RecipeListItem['id'] {
-  console.log('Updating list item\n' + item.id);
+  let recipeList: RecipeListItem[];
+  const stringifiedList = localStorage.getItem('recipeList');
+  if (stringifiedList === null) {
+    recipeList = [item];
+    localStorage.setItem('recipeList', JSON.stringify(recipeList));
+  } else {
+    recipeList = JSON.parse(stringifiedList);
+    const updatedList = recipeList.map((recipe) =>
+      item.id === recipe.id ? item : recipe
+    );
+    localStorage.setItem('recipeList', JSON.stringify(updatedList));
+  }
 }
 
 function deleteRecipeListItem(
