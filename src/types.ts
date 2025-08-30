@@ -15,7 +15,17 @@ export type RecipeListItem = {
   name: string;
 };
 
-export type SortType = 'name' | 'createdAt';
+const sortOptions = ['name', 'createdAt'] as const;
+
+export type SortType = typeof sortOptions[number];
+
+export function isSortType(str: string | null): boolean {
+  let isTrue = false;
+  sortOptions.forEach((option) => {
+    if (str === option) isTrue = true;
+  })
+  return isTrue;
+}
 
 export type InvalidInputMessages = {
   name: string;
