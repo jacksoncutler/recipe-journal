@@ -7,7 +7,9 @@ const recipeListKey = 'recipeList';
 
 export function getRecipe(id: RecipeData['id']): void | RecipeData {
   if (id === undefined) return;
-  console.log('Retrieving recipe\n' + id);
+  const dataString = localStorage.getItem(id);
+  if (!dataString) return;
+  return JSON.parse(dataString) as RecipeData;
 }
 
 export function createRecipe(data: RecipeData): void | RecipeData['id'] {

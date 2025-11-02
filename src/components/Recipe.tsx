@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Outlet, useParams, useLocation } from 'react-router';
 
 import type { RecipeData } from '../types';
+import { getRecipe } from '../storage';
 
 const initialRecipeState: RecipeData = {
   id: undefined,
@@ -14,25 +15,6 @@ const initialRecipeState: RecipeData = {
   notes: [''],
 };
 
-// const recipe: RecipeData = {
-//   id: undefined,
-//   createdAt: undefined,
-//   name: 'Chicken',
-//   isExternal: false,
-//   ingredients: ['Salt', 'Chicken'],
-//   instructions: ['Salt the chicken', 'Cook the chicken'],
-//   notes: ["Don't forget to salt the chicken before you cook it"],
-// };
-
-const recipe: RecipeData = {
-  id: undefined,
-  createdAt: undefined,
-  name: 'Chicken',
-  isExternal: true,
-  externalLink: 'https://www.google.com/',
-  notes: ["Don't forget to salt the chicken before you cook it"],
-};
-
 export function Recipe() {
   let location = useLocation();
   let params = useParams();
@@ -42,10 +24,10 @@ export function Recipe() {
     if (isNew()) {
       setRecipeData(initialRecipeState);
     } else {
-      // get recipe data from storage
-      // if params.recipeId is not found:
-      if (false) {
+      const recipe = getRecipe(params.recipeId);
+      if (!recipe) {
         // reroute to 404 page not found
+        return;
       }
       setRecipeData({ ...recipe, id: params.recipeId!, createdAt: Date.now() });
     }
