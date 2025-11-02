@@ -37,20 +37,18 @@ export function Recipe() {
   let location = useLocation();
   let params = useParams();
   const [recipeData, setRecipeData] = useState<RecipeData>();
-  const [isNewRecipe, setIsNewRecipe] = useState<boolean>(false);
 
   useEffect(() => {
     if (isNew()) {
-      setIsNewRecipe(true);
-      setRecipeData({ ...initialRecipeState });
-      return;
+      setRecipeData(initialRecipeState);
+    } else {
+      // get recipe data from storage
+      // if params.recipeId is not found:
+      if (false) {
+        // reroute to 404 page not found
+      }
+      setRecipeData({ ...recipe, id: params.recipeId!, createdAt: Date.now() });
     }
-    // get recipe data from storage
-    // if params.recipeId is not found:
-    if (false) {
-      // reroute to 404 page not found
-    }
-    setRecipeData({ ...recipe, id: params.recipeId!, createdAt: Date.now() });
   }, []);
 
   function isNew() {
@@ -66,7 +64,7 @@ export function Recipe() {
   return (
     <section className='container'>
       {recipeData ? (
-        <Outlet context={{ data: recipeData, isNewRecipe }} />
+        <Outlet context={{ data: recipeData, isNewRecipe: isNew() }} />
       ) : (
         <p>Loading...</p>
       )}
