@@ -23,7 +23,6 @@ export function RecipeList() {
   });
 
   useEffect(() => {
-    console.log(sortBy, isReversed);
     setList(getRecipeList(sortBy, isReversed));
   }, [sortBy, isReversed]);
 
@@ -45,7 +44,9 @@ export function RecipeList() {
     }
   }
 
-  function deleteHandler() {}
+  function deleteHandler(data: RecipeListItemData) {
+    console.log(`Deleting ${data.name}...`);
+  }
 
   return (
     <ul id='recipe-list' className='recipe-list'>
@@ -54,7 +55,13 @@ export function RecipeList() {
         <button onClick={sortByCreatedAtHandler}>createdAt</button>
       </li>
       {list ? (
-        list.map((recipe) => <RecipeListItem key={recipe.id} name={recipe.name} createdAt={recipe.createdAt} onDelete={deleteHandler} />)
+        list.map((recipe) => (
+          <RecipeListItem
+            key={recipe.id}
+            data={recipe}
+            onDelete={deleteHandler}
+          />
+        ))
       ) : (
         <p>No recipes yet...</p>
       )}
@@ -63,16 +70,16 @@ export function RecipeList() {
 }
 
 type ItemProps = {
-  name: RecipeListItemData['name'];
-  createdAt: RecipeListItemData['createdAt'];
-  onDelete: () => void;
+  data: RecipeListItemData;
+  onDelete: (data: RecipeListItemData) => void;
 };
 
 function RecipeListItem(props: ItemProps) {
   return (
     <li>
-      <span>{props.name}</span>
-      <span>{props.createdAt}</span>
+      <span>{props.data.name}</span>
+      <span>{props.data.createdAt}</span>
+      <button onClick={() => props.onDelete(props.data)}>Delete</button>
     </li>
   );
 }
