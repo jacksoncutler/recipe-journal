@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 
 import { isValidRecipeData } from './validation';
-import type { RecipeData, RecipeListItem, SortType } from './types';
+import type { RecipeData, RecipeListItemData, SortType } from './types';
 
 const recipeListKey = 'recipeList';
 
@@ -16,7 +16,7 @@ export function createRecipe(data: RecipeData): void | RecipeData['id'] {
   data.createdAt = Date.now();
   formatRecipeData(data);
   localStorage.setItem(data.id, JSON.stringify(data));
-  const listItem: RecipeListItem = {
+  const listItem: RecipeListItemData = {
     id: data.id,
     createdAt: data.createdAt,
     name: data.name,
@@ -29,7 +29,7 @@ export function updateRecipe(data: RecipeData): void | RecipeData['id'] {
   if (!isValidRecipeData(data)) return;
   formatRecipeData(data);
   localStorage.setItem(data.id, JSON.stringify(data));
-  const listItem: RecipeListItem = {
+  const listItem: RecipeListItemData = {
     id: data.id,
     createdAt: data.createdAt,
     name: data.name,
@@ -43,18 +43,18 @@ export function deleteRecipe(id: RecipeData['id']): void | RecipeData['id'] {
   deleteRecipeListItem(id);
 }
 
-export function getRecipeList(sortBy: SortType, reversed: boolean): void | RecipeListItem[] {
+export function getRecipeList(sortBy: SortType, reversed: boolean): void | RecipeListItemData[] {
   const stringifiedList = localStorage.getItem(recipeListKey);
   if (stringifiedList === null) return;
-  const recipeList: RecipeListItem[] = JSON.parse(stringifiedList);
+  const recipeList: RecipeListItemData[] = JSON.parse(stringifiedList);
   const sortedList = recipeList.sort((a, b) => (a[sortBy] < b[sortBy] ? -1 : 1));
   return reversed ? sortedList.reverse() : sortedList;
 }
 
 function createRecipeListItem(
-  item: RecipeListItem
-): void | RecipeListItem['id'] {
-  let recipeList: RecipeListItem[];
+  item: RecipeListItemData
+): void | RecipeListItemData['id'] {
+  let recipeList: RecipeListItemData[];
   const stringifiedList = localStorage.getItem(recipeListKey);
   if (stringifiedList === null) recipeList = [];
   else recipeList = JSON.parse(stringifiedList);
@@ -63,9 +63,9 @@ function createRecipeListItem(
 }
 
 function updateRecipeListItem(
-  item: RecipeListItem
-): void | RecipeListItem['id'] {
-  let recipeList: RecipeListItem[];
+  item: RecipeListItemData
+): void | RecipeListItemData['id'] {
+  let recipeList: RecipeListItemData[];
   const stringifiedList = localStorage.getItem(recipeListKey);
   if (stringifiedList === null) {
     recipeList = [item];
@@ -80,8 +80,8 @@ function updateRecipeListItem(
 }
 
 function deleteRecipeListItem(
-  id: RecipeListItem['id']
-): void | RecipeListItem['id'] {
+  id: RecipeListItemData['id']
+): void | RecipeListItemData['id'] {
   console.log('Deleting list item\n' + id);
 }
 

@@ -9,7 +9,7 @@ export type RecipeData = {
   notes: string[];
 };
 
-export type RecipeListItem = {
+export type RecipeListItemData = {
   id: string;
   createdAt: number;
   name: string;
