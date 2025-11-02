@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useOutletContext } from 'react-router';
 
-import { DynamicFormSection } from './DynamicFormSection';
+import { DynamicFormSection } from './DynamicForm';
 import { ValidatedInput } from './ValidatedInput';
 import { createRecipe, updateRecipe } from '../storage';
 import {
