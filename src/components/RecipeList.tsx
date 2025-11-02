@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router';
+import { useSearchParams, Link } from 'react-router';
 
 import { getRecipeList } from '../storage';
 import { isSortType } from '../types';
@@ -77,9 +77,11 @@ type ItemProps = {
 function RecipeListItem(props: ItemProps) {
   return (
     <li>
-      <span>{props.data.name}</span>
-      <span>{props.data.createdAt}</span>
-      <button onClick={() => props.onDelete(props.data)}>Delete</button>
+      <Link to={`recipe/${props.data.id}`}>
+        <span>{props.data.name}</span>
+        <span>{props.data.createdAt}</span>
+        <button onClick={() => props.onDelete(props.data)}>Delete</button>
+      </Link>
     </li>
   );
 }
