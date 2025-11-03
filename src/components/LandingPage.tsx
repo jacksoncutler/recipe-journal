@@ -1,6 +1,6 @@
 import { RecipeList } from './RecipeList';
 
-export function Dashboard() {
+export function LandingPage() {
   return (
     <section id='content' className='container'>
       <div id='hero' className='hero'>

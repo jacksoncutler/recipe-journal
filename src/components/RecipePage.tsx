@@ -15,7 +15,7 @@ const initialRecipeState: RecipeData = {
   notes: [''],
 };
 
-export function Recipe() {
+export function RecipePage() {
   let location = useLocation();
   let params = useParams();
   const [recipeData, setRecipeData] = useState<RecipeData>();
