@@ -67,7 +67,7 @@ function createRecipeListItem(
   if (stringifiedList === null) recipeList = [];
   else recipeList = JSON.parse(stringifiedList);
   recipeList.push(item);
-  localStorage.setItem('recipeList', JSON.stringify(recipeList));
+  localStorage.setItem(recipeListKey, JSON.stringify(recipeList));
 }
 
 function updateRecipeListItem(
@@ -77,13 +77,13 @@ function updateRecipeListItem(
   const stringifiedList = localStorage.getItem(recipeListKey);
   if (stringifiedList === null) {
     recipeList = [item];
-    localStorage.setItem('recipeList', JSON.stringify(recipeList));
+    localStorage.setItem(recipeListKey, JSON.stringify(recipeList));
   } else {
     recipeList = JSON.parse(stringifiedList);
     recipeList = recipeList.map((recipe) =>
       item.id === recipe.id ? item : recipe
     );
-    localStorage.setItem('recipeList', JSON.stringify(recipeList));
+    localStorage.setItem(recipeListKey, JSON.stringify(recipeList));
   }
 }
 
