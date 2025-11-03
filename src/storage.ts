@@ -41,15 +41,20 @@ export function updateRecipe(data: RecipeData): void | RecipeData['id'] {
 
 export function deleteRecipe(id: RecipeData['id']): void | RecipeData['id'] {
   if (id === undefined) return;
-  console.log('Deleting recipe\n' + id);
+  localStorage.removeItem(id);
   deleteRecipeListItem(id);
 }
 
-export function getRecipeList(sortBy: SortType, reversed: boolean): void | RecipeListItemData[] {
+export function getRecipeList(
+  sortBy: SortType,
+  reversed: boolean
+): void | RecipeListItemData[] {
   const stringifiedList = localStorage.getItem(recipeListKey);
   if (stringifiedList === null) return;
   const recipeList: RecipeListItemData[] = JSON.parse(stringifiedList);
-  const sortedList = recipeList.sort((a, b) => (a[sortBy] < b[sortBy] ? -1 : 1));
+  const sortedList = recipeList.sort((a, b) =>
+    a[sortBy] < b[sortBy] ? -1 : 1
+  );
   return reversed ? sortedList.reverse() : sortedList;
 }
 
@@ -74,17 +79,21 @@ function updateRecipeListItem(
     localStorage.setItem('recipeList', JSON.stringify(recipeList));
   } else {
     recipeList = JSON.parse(stringifiedList);
-    const updatedList = recipeList.map((recipe) =>
+    recipeList = recipeList.map((recipe) =>
       item.id === recipe.id ? item : recipe
     );
-    localStorage.setItem('recipeList', JSON.stringify(updatedList));
+    localStorage.setItem('recipeList', JSON.stringify(recipeList));
   }
 }
 
 function deleteRecipeListItem(
   id: RecipeListItemData['id']
 ): void | RecipeListItemData['id'] {
-  console.log('Deleting list item\n' + id);
+  const stringifiedList = localStorage.getItem(recipeListKey);
+  if (stringifiedList === null) return;
+  let recipeList = JSON.parse(stringifiedList) as RecipeListItemData[];
+  recipeList = recipeList.filter((recipe) => id !== recipe.id);
+  localStorage.setItem(recipeListKey, JSON.stringify(recipeList));
 }
 
 // FORMATTING

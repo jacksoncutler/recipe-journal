@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router';
 
-import { getRecipeList } from '../storage';
+import { getRecipeList, deleteRecipe } from '../storage';
 import { isSortType } from '../types';
 import type { RecipeListItemData, SortType } from '../types';
 
@@ -45,7 +45,7 @@ export function RecipeList() {
   }
 
   function deleteHandler(data: RecipeListItemData) {
-    console.log(`Deleting ${data.name}...`);
+    deleteRecipe(data.id);
   }
 
   return (
