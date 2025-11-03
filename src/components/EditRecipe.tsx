@@ -19,7 +19,7 @@ type Context = {
 export function EditRecipe() {
   const context = useOutletContext<Context>();
   const [name, setName] = useState<RecipeData['name']>(context.data.name);
-  const [isExternal, _] = useState<RecipeData['isExternal']>(
+  const [isExternal, setIsExternal] = useState<RecipeData['isExternal']>(
     context.data.isExternal
   );
   const [externalLink, setExternalLink] = useState<RecipeData['externalLink']>(
@@ -84,6 +84,17 @@ export function EditRecipe() {
           isValid={isValidNameState}
         />
       </div>
+      <span className='recipe-form-toggle'>
+        <input
+          id='is-external'
+          type='checkbox'
+          checked={isExternal}
+          onChange={() => {
+            setIsExternal((prevState) => !prevState);
+          }}
+        />
+        <label htmlFor='is-external'>Use existing recipe</label>
+      </span>
       {
         // toggle button for external recipe
         isExternal ? (

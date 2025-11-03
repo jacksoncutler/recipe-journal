@@ -27,3 +27,7 @@
 .recipe-form-item > input {
   min-width: 32rem;
 }
+
+.recipe-form-toggle > input {
+  margin-right: 0.5rem;
+}
