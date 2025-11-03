@@ -20,10 +20,6 @@
   gap: 0.5rem;
 }
 
-.recipe-form-item {
-  display: inline;
-}
-
 .recipe-form-item > input {
   min-width: 32rem;
 }

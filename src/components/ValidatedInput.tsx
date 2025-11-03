@@ -10,9 +10,9 @@ type Props = {
 
 export function ValidatedInput(props: Props) {
   return (
-    <>
+    <span className='recipe-form-item'>
       <input value={props.value} onChange={props.onChange} />
       {props.isValid ? <></> : <p>{invalidInputMessages[props.type]}</p>}
-    </>
+    </span>
   );
 }

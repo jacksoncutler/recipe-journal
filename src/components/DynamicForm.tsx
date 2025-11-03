@@ -49,9 +49,9 @@ type InputProps = {
 
 export function DynamicFormInput(props: InputProps) {
   return (
-    <div className='recipe-form-item'>
+    <span className='recipe-form-item'>
       <input value={props.value} onChange={(e) => props.onUpdate(e)} />
       <button onClick={props.onDelete} className='button-icon' type='button'>X</button>
-    </div>
+    </span>
   );
 }
