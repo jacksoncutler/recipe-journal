@@ -1,8 +1,9 @@
-import { nanoid } from 'nanoid';
+import { customAlphabet } from 'nanoid';
 
 import { isValidRecipeData } from './validation';
 import type { RecipeData, RecipeListItemData, SortType } from './types';
 
+const nanoid = customAlphabet('1234567890abcdef', 7)
 const recipeListKey = 'recipeList';
 
 export function getRecipe(id: RecipeData['id']): void | RecipeData {
