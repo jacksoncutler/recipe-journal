@@ -15,7 +15,7 @@ export function ViewRecipe() {
       <div id='recipe-body'>
         {context.data.isExternal ? (
           // use iframe or something for external recipe
-          <></>
+          <a href={context.data.externalLink}><u>Go to recipe</u></a>
         ) : (
           <>
             <h2>Ingredients</h2>
