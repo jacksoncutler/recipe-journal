@@ -12,6 +12,7 @@ export function ViewRecipe() {
   return (
     <>
       <Link to='/'><button>Return to recipes</button></Link>
+      <Link to={`/recipe/${context.data.id}/edit`}><button>Edit</button></Link>
       <div id='recipe-title'>{context.data.name}</div>
       <div id='recipe-body'>
         {context.data.isExternal ? (
