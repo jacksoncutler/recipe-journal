@@ -86,6 +86,9 @@ function RecipeListItem(props: ItemProps) {
         <span>{props.data.name}</span>
         <span>{props.data.createdAt}</span>
       </Link>
+      <Link to={`recipe/${props.data.id}/edit`}>
+        <button>Edit</button>
+      </Link>
       <button onClick={() => props.onDelete(props.data)}>Delete</button>
     </li>
   );
