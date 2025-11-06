@@ -25,6 +25,7 @@ export function createRecipe(data: RecipeData): void | RecipeData['id'] {
     name: data.name,
   };
   createRecipeListItem(listItem);
+  return data.id;
 }
 
 export function updateRecipe(data: RecipeData): void | RecipeData['id'] {
@@ -38,6 +39,7 @@ export function updateRecipe(data: RecipeData): void | RecipeData['id'] {
     name: data.name,
   };
   updateRecipeListItem(listItem);
+  return data.id;
 }
 
 export function deleteRecipe(id: RecipeData['id']): void | RecipeData['id'] {
