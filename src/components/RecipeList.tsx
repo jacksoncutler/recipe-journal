@@ -8,7 +8,11 @@ import type { RecipeListItemData, SortType } from '../types';
 const defaultSortBy: SortType = 'createdAt';
 const defaultReverse: boolean = true;
 
-export function RecipeList() {
+type ListProps = {
+  forceUpdate: () => void;
+}
+
+export function RecipeList(props: ListProps) {
   const [searchParams] = useSearchParams();
   const [list, setList] = useState<RecipeListItemData[] | void>();
   const [sortBy, setSortBy] = useState<SortType>(() => {
@@ -46,6 +50,7 @@ export function RecipeList() {
 
   function deleteHandler(data: RecipeListItemData) {
     deleteRecipe(data.id);
+    props.forceUpdate();
   }
 
   return (
@@ -80,8 +85,8 @@ function RecipeListItem(props: ItemProps) {
       <Link to={`recipe/${props.data.id}`}>
         <span>{props.data.name}</span>
         <span>{props.data.createdAt}</span>
-        <button onClick={() => props.onDelete(props.data)}>Delete</button>
       </Link>
+      <button onClick={() => props.onDelete(props.data)}>Delete</button>
     </li>
   );
 }
