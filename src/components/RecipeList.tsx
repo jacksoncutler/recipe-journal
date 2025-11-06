@@ -5,12 +5,12 @@ import { getRecipeList, deleteRecipe } from '../storage';
 import { isSortType } from '../types';
 import type { RecipeListItemData, SortType } from '../types';
 
-const defaultSortBy: SortType = 'createdAt';
-const defaultReverse: boolean = true;
+const defaultSortBy: SortType = 'recent';
+const defaultReverse: boolean = false;
 
 type ListProps = {
   forceUpdate: () => void;
-}
+};
 
 export function RecipeList(props: ListProps) {
   const [searchParams] = useSearchParams();
@@ -39,12 +39,12 @@ export function RecipeList(props: ListProps) {
     }
   }
 
-  function sortByCreatedAtHandler() {
-    if (sortBy === 'createdAt') {
+  function sortByRecentHandler() {
+    if (sortBy === 'recent') {
       setIsReversed((prevState) => !prevState);
     } else {
-      setSortBy('createdAt');
-      setIsReversed(true);
+      setSortBy('recent');
+      setIsReversed(false);
     }
   }
 
@@ -57,7 +57,7 @@ export function RecipeList(props: ListProps) {
     <ul id='recipe-list' className='recipe-list'>
       <li>
         <button onClick={sortByNameHandler}>name</button>
-        <button onClick={sortByCreatedAtHandler}>createdAt</button>
+        <button onClick={sortByRecentHandler}>recent</button>
       </li>
       {list ? (
         list.map((recipe) => (

@@ -3,7 +3,7 @@ import { customAlphabet } from 'nanoid';
 import { isValidRecipeData } from './validation';
 import type { RecipeData, RecipeListItemData, SortType } from './types';
 
-const nanoid = customAlphabet('1234567890abcdef', 7)
+const nanoid = customAlphabet('1234567890abcdef', 7);
 const recipeListKey = 'recipeList';
 
 export function getRecipe(id: RecipeData['id']): void | RecipeData {
@@ -52,11 +52,19 @@ export function getRecipeList(
 ): void | RecipeListItemData[] {
   const stringifiedList = localStorage.getItem(recipeListKey);
   if (stringifiedList === null) return;
-  const recipeList: RecipeListItemData[] = JSON.parse(stringifiedList);
-  const sortedList = recipeList.sort((a, b) =>
-    a[sortBy] < b[sortBy] ? -1 : 1
-  );
-  return reversed ? sortedList.reverse() : sortedList;
+  let recipeList: RecipeListItemData[] = JSON.parse(stringifiedList);
+  let sortFunction;
+  if (sortBy === 'name') sortFunction = nameSort;
+  if (sortBy === 'recent') sortFunction = recentSort;
+  recipeList = recipeList.sort(sortFunction);
+  return reversed ? recipeList.reverse() : recipeList;
+
+  function nameSort(a: RecipeListItemData, b: RecipeListItemData) {
+    return a['name'] < b['name'] ? -1 : 1;
+  }
+  function recentSort(a: RecipeListItemData, b: RecipeListItemData) {
+    return a['createdAt'] > b['createdAt'] ? -1 : 1;
+  }
 }
 
 function createRecipeListItem(

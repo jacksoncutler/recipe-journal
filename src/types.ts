@@ -15,15 +15,15 @@ export type RecipeListItemData = {
   name: string;
 };
 
-const sortOptions = ['name', 'createdAt'] as const;
+const sortOptions = ['name', 'recent'] as const;
 
-export type SortType = typeof sortOptions[number];
+export type SortType = (typeof sortOptions)[number];
 
 export function isSortType(str: string | null): boolean {
   let isTrue = false;
   sortOptions.forEach((option) => {
     if (str === option) isTrue = true;
-  })
+  });
   return isTrue;
 }
 
