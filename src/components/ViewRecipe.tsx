@@ -1,4 +1,4 @@
-import { useOutletContext, useNavigate } from 'react-router';
+import { useOutletContext, Link } from 'react-router';
 
 import type { RecipeData } from '../types';
 
@@ -8,11 +8,10 @@ type Context = {
 
 export function ViewRecipe() {
   const context = useOutletContext<Context>();
-  const navigate = useNavigate();
 
   return (
     <>
-      <button onClick={() => navigate(-1)}>Return to recipes</button>
+      <Link to='/'><button>Return to recipes</button></Link>
       <div id='recipe-title'>{context.data.name}</div>
       <div id='recipe-body'>
         {context.data.isExternal ? (
