@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useOutletContext } from 'react-router';
+import { useOutletContext, useNavigate } from 'react-router';
 
 import { DynamicFormSection } from './DynamicForm';
 import { ValidatedInput } from './ValidatedInput';
@@ -17,6 +17,7 @@ type Context = {
 };
 
 export function EditRecipe() {
+  const navigate = useNavigate();
   const context = useOutletContext<Context>();
   const [name, setName] = useState<RecipeData['name']>(context.data.name);
   const [isExternal, setIsExternal] = useState<RecipeData['isExternal']>(
@@ -43,12 +44,17 @@ export function EditRecipe() {
       setInvalidInputStates();
       return;
     }
+    let id;
     if (context.isNewRecipe) {
-      createRecipe(saveData);
+      id = createRecipe(saveData);
     } else {
-      updateRecipe(saveData);
+      id = updateRecipe(saveData);
     }
-    // reroute to dashboard
+    if (id) {
+      navigate(`/recipe/${id}`, {
+        state: { saved: true },
+      });
+    }
 
     function buildSaveData(): RecipeData {
       const saveData: RecipeData = {
