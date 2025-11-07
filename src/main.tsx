@@ -7,6 +7,7 @@ import { LandingPage } from './components/LandingPage.tsx';
 import { RecipePage } from './components/RecipePage.tsx';
 import { ViewRecipe } from './components/ViewRecipe.tsx';
 import { EditRecipe } from './components/EditRecipe.tsx';
+import { NotFoundPage } from './components/NotFoundPage.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')!).render(
             </Route>
           </Route>
         </Route>
+        <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
