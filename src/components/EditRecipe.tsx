@@ -79,6 +79,12 @@ export function EditRecipe() {
     }
   }
 
+  function cancelHandler() {
+    const id = context.data.id;
+    if (id && !context.isNewRecipe) navigate(`/recipe/${id}`);
+    else navigate('/');
+  }
+
   return (
     <form onSubmit={saveHandler} className='recipe-form'>
       <div className='recipe-form section'>
@@ -142,6 +148,7 @@ export function EditRecipe() {
         data={notes}
         setData={setNotes}
       />
+      <button onClick={cancelHandler}>Cancel</button>
       <button type='submit'>Save</button>
     </form>
   );
