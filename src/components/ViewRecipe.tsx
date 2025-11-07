@@ -1,5 +1,6 @@
 import { useOutletContext, Link } from 'react-router';
 
+import { deleteRecipe } from '../storage';
 import type { RecipeData } from '../types';
 
 type Context = {
@@ -13,6 +14,7 @@ export function ViewRecipe() {
     <>
       <Link to='/'><button>Return to recipes</button></Link>
       <Link to={`/recipe/${context.data.id}/edit`}><button>Edit</button></Link>
+      <Link to='/'><button onClick={() => deleteRecipe(context.data.id)}>Delete</button></Link>
       <div id='recipe-title'>{context.data.name}</div>
       <div id='recipe-body'>
         {context.data.isExternal ? (
