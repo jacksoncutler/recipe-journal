@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router';
 import { customAlphabet } from 'nanoid';
 
 import { RecipeList } from './RecipeList';
@@ -16,6 +17,7 @@ export function LandingPage() {
       <div id='hero' className='hero'>
         Recipe Journal
       </div>
+      <Link to='/recipe/new/edit'><button>Create New</button></Link>
       <RecipeList key={listKey} forceUpdate={forceUpdate} />
     </section>
   );
