@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Outlet, useLocation, useParams } from 'react-router';
+import { Outlet, useLocation, useParams, useNavigate } from 'react-router';
 
 import type { RecipeData } from '../types';
 import { getRecipe } from '../storage';
@@ -18,18 +18,16 @@ const initialRecipeState: RecipeData = {
 export function RecipePage() {
   let location = useLocation();
   let params = useParams();
+  const navigate = useNavigate();
   const [recipeData, setRecipeData] = useState<RecipeData>();
-  
+
   useEffect(() => {
     if (isNew()) {
       setRecipeData(initialRecipeState);
     } else {
       const recipe = getRecipe(params.recipeId);
-      if (!recipe) {
-        // reroute to 404 page not found
-        return;
-      }
-      setRecipeData(recipe);
+      if (recipe) setRecipeData(recipe);
+      else navigate('/404');
     }
   }, [location.state]);
 

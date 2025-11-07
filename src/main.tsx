@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
 
 import { App } from './components/App.tsx';
 import { LandingPage } from './components/LandingPage.tsx';
@@ -16,14 +16,13 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path='/' element={<App />}>
           <Route index element={<LandingPage />} />
-          <Route path='recipe'>
-            <Route path=':recipeId' element={<RecipePage />}>
-              <Route index element={<ViewRecipe />} />
-              <Route path='edit' element={<EditRecipe />} />
-            </Route>
+          <Route path='recipe/:recipeId' element={<RecipePage />}>
+            <Route index element={<ViewRecipe />} />
+            <Route path='edit' element={<EditRecipe />} />
           </Route>
         </Route>
-        <Route path='*' element={<NotFoundPage />} />
+        <Route path='/404' element={<NotFoundPage />} />
+        <Route path='*' element={<Navigate replace to='/404' />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
